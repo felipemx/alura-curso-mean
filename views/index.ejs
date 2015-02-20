@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body ng-controller="FilmeController">
+	<h1>Curso da Alura de MEAN</h1>
+
+	<ul>
+		<!-- o filme já está embutido no escopo do controlador através do $scope -->
+		<li ng-repeat="filme in filmes">
+			<!-- O 'filme' passado como parâmetro é o item de cada elemento da iteração do ng-repeat acima -->
+			<a href="#" ng-click="mostraFilme(filme)">{{filme.titulo}}</a>
+		</li>
+	</ul>
+
+	<div ng-if="filmeSelecionado">
+		<dl>
+			<dd>Titulo</dd>
+			<dt>{{filmeSelecionado.titulo}}</dt>
+			
+			<dd>Diretor</dd>
+			<dt>{{filmeSelecionado.autor}}</dt>
+
+			<dd>Ano</dd>
+			<dt>{{filmeSelecionado.ano}}</dt>
+		</dl>
+
+		<a href="#"ng-click="deletaFilme(filmeSelecionado)">Deletar filme {{filmeSelecionado.titulo}}</a>
+	</div>
+
+    <form action="#" ng-submit="adicionaFilme()">
+        Titulo: <input ng-model="filme.titulo">
+        Diretor: <input ng-model="filme.autor">
+        Ano: <input ng-model="filme.ano">
+        <input type="submit">
+    </form>
+
+	<script src="javascript/angular.js" type="text/javascript"></script>
+	<script src="javascript/controllers/FilmeController.js" type="text/javascript"></script>
+</body>
+</html>
