@@ -39,3 +39,13 @@ exports.deleta = function(req, res){
 		res.send('Filme' + filme.titulo + ' removido com sucesso');
 	});
 };
+
+exports.atualiza = function(req, res){
+	var id = req.body._id;
+	//Remove o id do objeto que será passado para o banco atualizar (para não acontecer de atualizar o id)
+	delete req.body._id;
+
+	Filmes.findByIdAndUpdate(id, req.body, function(erro, filme){
+		res.send('Filme ' + filme.titulo + ' atualizado!');
+	});
+};

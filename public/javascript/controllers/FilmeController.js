@@ -16,7 +16,8 @@ function FilmeController($http, $scope) {
 	$scope.filme = new Filme();
 
 	//Criando o método adicionaFilme, apontado lá no index.ejs, em seu ng-submit
-	$scope.adicionaFilme = function(){
+	//Removido do escopo do controlador pois agora só é chamado através do enviaFilme
+	var adicionaFilme = function(){
 		//Chama a rota 'grava' do express, definida em routes/index.js
 		$http.post('/grava', $scope.filme).success(function(retorno){
 			//Atualizando a coleção de filmes na view
@@ -40,5 +41,26 @@ function FilmeController($http, $scope) {
 			var posicao = $scope.filmes.indexOf(filme);
 			$scope.filmes.splice(posicao, 1);
 		});
+	};
+
+	var atualizaFilme = function(){
+		$http.put('/filme', $scope.filme).success(function(){
+			//Limpando o formulário
+			$scope.filme = new Filme();
+		});
+	};
+
+	$scope.editaFilme = function(filme){
+		//Enviando as informações do filme selecionado para a variável do escopo que está atrelada ao formulário
+		$scope.filme = filme;
+	};
+
+	//Criando o método enviaFilme, apontado lá no index.ejs, em seu ng-submit
+	$scope.enviaFilme =  function(){
+		if($scope.filme._id){
+			atualizaFilme();
+		} else{
+			adicionaFilme();
+		}
 	};
 }
