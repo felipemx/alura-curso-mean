@@ -1,4 +1,4 @@
-function FilmeController($http, $scope) {
+angular.module('catalogo').controller('FilmeController', function($http, $scope) {
 	
 	//Chama a rota 'lista' do express, definida em routes/index.js
 	$http.get('/lista').success(function(retorno){
@@ -63,4 +63,4 @@ function FilmeController($http, $scope) {
 			adicionaFilme();
 		}
 	};
-}
+});
